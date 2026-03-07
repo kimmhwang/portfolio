@@ -63,8 +63,8 @@ const SITE_CONFIG = {
     { name: "LinkedIn", icon: "in", url: "https://linkedin.com/in/kimhwang" },
     { name: "ResearchGate", icon: "RG", url: "https://www.researchgate.net/profile/Kim-Hwang-Yeo/research" },
     { name: "ORCID", icon: "ID", url: "https://orcid.org/0000-0001-8849-1534" },
-    { name: "GitHub", icon: "GH", url: "#" },
-    { name: "Medium", icon: "M", url: "#" },
+    // { name: "GitHub", icon: "GH", url: "#" },
+    { name: "Medium", icon: "M", url: "https://medium.com/@kimhwangyeo" },
   ],
 
   /* ── Thematic Pillars (Homepage convergence formula) ── */
@@ -120,7 +120,7 @@ const ORGANIZATIONS = [
   { id: "o2", name: "Johns Hopkins University", group: "academic", role: "M.S.E. · Instructor · Research Fellow", period: "2022–2024", logo: "🏛️", url: "https://cbid.bme.jhu.edu/" },
   { id: "o3", name: "UC Berkeley", group: "academic", role: "B.S. Bioengineering · IT Consultant", period: "2020–2022", logo: "🐻", url: "https://bioeng.berkeley.edu/" },
   { id: "o4", name: "Ocular Therapeutix", group: "employer", role: "Global Market Access Strategist", period: "2023", logo: "👁️", url: "https://www.ocutx.com/" },
-  { id: "o5", name: "Mosaic Consulting", group: "employer", role: "Hardware Systems Engineer", period: "2022", logo: "🔩", url: "" },
+  { id: "o5", name: "Mosaic Consulting", group: "employer", role: "Hardware Systems Engineer", period: "2022", logo: "🔩", url: "https://www.linkedin.com/company/mosaic-design-labs/" },
   { id: "o6", name: "Aravind Eye Hospital", group: "partner", role: "Clinical Partnership", period: "2023", logo: "🏥", url: "https://aravind.org/" },
   { id: "o7", name: "Makerere University", group: "partner", role: "Field Research Collaboration", period: "2021–2023", logo: "🌍", url: "https://www.mak.ac.ug/" },
   { id: "o8", name: "American Cancer Society", group: "partner", role: "USD 250K Grant Funder", period: "2023", logo: "🎗️", url: "https://www.cancer.org/" },
