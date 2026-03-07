@@ -12,8 +12,6 @@ html {
 }
 
 body {
-  background: #0a0a0a;
-  color: #e5e5e5;
   font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   line-height: 1.5;
   overflow-x: hidden;
@@ -24,19 +22,19 @@ button {
   font-family: inherit;
 }
 
-/* Smooth scrollbar for dark theme */
+/* Smooth scrollbar — inherits page background via JS-driven theme */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: #555;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #777;
 }
 
 /* Selection color */

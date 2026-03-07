@@ -33,7 +33,7 @@ SITE_CONFIG
 │   └── pages.insights — headline, bio, blogUrl, blogLabel, showPipeline
 ├── 3. CONNECT — tagline
 ├── 4. PHILOSOPHY — headline, subtitle, principles[]
-├── 5. COLOR THEMES — colorThemes.default, colorThemes.accessible
+├── 5. COLOR THEMES — colorThemes.default, colorThemes.light, colorThemes.accessible
 ├── 6. THEMATIC AREAS — pillars[], themes[]
 ├── 7. SOCIALS — { name, icon, url, showInMenu, showInFooter }
 └── 8. NAVIGATION — showHomeInMenu
@@ -94,6 +94,17 @@ SITE_CONFIG
 - Writings tab on Work page
 - Philosophy section on About
 - Warmer charcoal base color
+
+### v1.1a — Light Mode & Wide Layout
+- Light/dark mode toggle (☾/☀ button in nav bar), independent of A11y toggle
+- Light theme: light grey background (#f0f0f0), white surfaces, darker text
+- Three-theme system: Default (dark), Light, High Contrast (accessible)
+- Desktop layout widened from 960px to 1200px maxWidth
+- Gallery grid uses `auto-fill` for responsive column count on wider screens
+- Project, achievement, and organization grids adapt to available width
+- Hero headline bumped to 44px on desktop; bio/text maxWidths increased
+- All hardcoded dark-mode colors replaced with theme-aware values (Mentors, Organizations, GitHub zone, Publications, ConnectSection)
+- globals.css simplified for theme-agnostic scrollbar and base styles
 
 ### v1.1 — Config Reorg & Polish
 - Config reorganized: Identity → Pages → Philosophy → Themes → Socials → Nav
