@@ -3,13 +3,13 @@ import "./globals.css";
 export const metadata = {
   title: "Kim Hwang Yeo — Bioengineering · Global Health · Innovation",
   description:
-    "Portfolio of Kim Hwang Yeo — bioengineering professional working at the intersection of medical technology, healthcare innovation, and systems-level thinking. Based in Singapore and the USA.",
+    "Portfolio of Kim Hwang Yeo — bioengineering professional with a track record in healthcare technology, data analytics, product development, and global health. Based in Singapore and the USA.",
   openGraph: {
     title: "Kim Hwang Yeo",
     description:
       "Bioengineering · Global Health · Innovation. Building technology that reaches the last mile.",
     type: "website",
-    // url: "https://kimhwangyeo.com",        // ← Set your domain
+    url: "https://kimhwang.me",        // ← Set your domain
     // images: ["/files/images/og-image.jpg"], // ← Set an OG image
   },
   icons: {

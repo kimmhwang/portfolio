@@ -25,7 +25,7 @@ Edit: open `app/page.jsx` → modify SITE_CONFIG and DATA arrays at top.
 
 ```
 SITE_CONFIG
-├── 1. IDENTITY — firstName, lastName, initials, email, resumeUrl
+├── 1. IDENTITY — firstName, lastName, initials, logoIcon, email, resumeUrl
 ├── 2. PAGE CONTENT
 │   ├── pages.home — tagline, headline[], bio, heroImage
 │   ├── pages.about — headline, bio
@@ -64,15 +64,15 @@ SITE_CONFIG
 
 ## Placeholder URLs Needed
 
-| What | Where in config |
-|------|----------------|
-| GitHub URL | `socials[3].url` |
-| Medium URL | `socials[4].url` + `pages.insights.blogUrl` |
-| Resume PDF | `resumeUrl` → `/files/resume.pdf` |
-| Hero image | `pages.home.heroImage` |
-| LinkedIn posts (4) | `SOCIAL_POSTS[].url` |
-| Publication PDFs (3) | `PUBLICATIONS[].pdfUrl` |
-| Mosaic Consulting | `ORGANIZATIONS[4].url` |
+| What | Where in config | Status |
+|------|----------------|--------|
+| Resume PDF file | Upload to `/public/files/resume.pdf` | Pending |
+| Hero image | `pages.home.heroImage` | Pending |
+| Publication PDFs (3) | `PUBLICATIONS[].pdfUrl` | Pending |
+| GitHub URL | `socials[3].url` | Done |
+| Medium URL | `socials[4].url` + `pages.insights.blogUrl` | Done |
+| LinkedIn posts (4) | `SOCIAL_POSTS[].url` | Done |
+| Mosaic Consulting | `ORGANIZATIONS[4].url` | Done |
 
 ---
 
@@ -124,9 +124,9 @@ SITE_CONFIG
 ## Post-Publication Checklist
 
 ### Must-Have
-- [ ] Resume PDF → `resumeUrl`
-- [ ] GitHub + Medium URLs
-- [ ] LinkedIn post URLs in SOCIAL_POSTS
+- [ ] Resume PDF → upload file to `/public/files/resume.pdf`
+- [x] GitHub + Medium URLs
+- [x] LinkedIn post URLs in SOCIAL_POSTS
 - [ ] Publication PDFs
 - [ ] Favicon
 

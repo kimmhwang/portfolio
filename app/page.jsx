@@ -12,20 +12,22 @@ const SITE_CONFIG = {
   firstName: "Kim Hwang",
   lastName: "Yeo",
   initials: "KH",
+  logoIcon: "",                      // Emoji or symbol to use instead of initials (e.g. "🧬", "⚕️"). Leave "" to use initials.
+  logoImage: "/files/images/logo.png", // Path to image file for logo. Leave "" to use logoIcon or initials.
   email: "kimhwangyeo@gmail.com",
-  resumeUrl: "#",   // "/files/resume.pdf"
+  resumeUrl: "/files/resume.pdf",   // "/files/resume.pdf"
 
   /* ═══ 2. PAGE CONTENT — Edit all page headers and text here ═══ */
   pages: {
     home: {
       tagline: "Bioengineering · Global Health · Innovation",
       headline: ["Building technology that", "reaches the last mile."],
-      bio: `I'm Kim Hwang Yeo — a bioengineering professional working at the intersection of medical technology, healthcare innovation, and systems-level thinking. Based in Singapore and the USA, with experience spanning China and East Africa.`,
+      bio: `I'm Kim Hwang Yeo — a bioengineering professional with a track record of leading cross-functional R&D, securing competitive funding, and translating complex technical insights into strategic outcomes. Based in Singapore and the USA, with experience spanning healthcare technology, data analytics, product development, and global health programs across the United States, Singapore, and East Africa.`,
       heroImage: "",  // "/files/images/hero.jpg" or ""
     },
     about: {
       headline: "About",
-      bio: "Interdisciplinary bioengineering professional. Medical technology, healthcare innovation, regulatory strategy. Singapore, the USA, China, and East Africa.",
+      bio: "Bioengineering professional. Healthcare technology, data analytics, product development, global health. Adept at bridging technical execution with business strategy, stakeholder engagement, and regulatory navigation. Singapore, the USA, and East Africa.",
     },
     work: {
       headline: "My Work",
@@ -34,7 +36,7 @@ const SITE_CONFIG = {
       headline: "Insights",
       bio: "Perspectives on bioengineering, global health, healthcare systems, and building a career at the intersection of technology and medicine.",
       blogLabel: "Read on Medium",  // Label for blog card
-      blogUrl: "#",                 // Medium profile URL
+      blogUrl: "https://medium.com/@kimhwangyeo",
       showPipeline: false,          // true = show "Coming Soon" articles; false = hide
     },
   },
@@ -102,8 +104,8 @@ const SITE_CONFIG = {
     { name: "LinkedIn", icon: "in", url: "https://linkedin.com/in/kimhwang", showInMenu: true, showInFooter: true },
     { name: "ResearchGate", icon: "RG", url: "https://www.researchgate.net/profile/Kim-Hwang-Yeo/research", showInMenu: true, showInFooter: true },
     { name: "ORCID", icon: "ID", url: "https://orcid.org/0000-0001-8849-1534", showInMenu: false, showInFooter: true },
-    { name: "GitHub", icon: "GH", url: "#", showInMenu: true, showInFooter: true },
-    { name: "Medium", icon: "M", url: "#", showInMenu: false, showInFooter: true },
+    { name: "GitHub", icon: "GH", url: "https://github.com/kimmhwang/", showInMenu: false, showInFooter: true },
+    { name: "Medium", icon: "M", url: "https://medium.com/@kimhwangyeo", showInMenu: false, showInFooter: true },
   ],
 
   /* ═══ 7. NAVIGATION ═══ */
@@ -120,7 +122,7 @@ const getTC = (label, C) => S.themes.find(t => t.label === label)?.color || C.te
    ██████████████████████████████████████████████████████████████████████████████ */
 
 const PROJECTS = [
-  { id: "ekyaalo", name: "Ekyaalo Diagnostics Platform", theme: "Global Health", type: "own", desc: "End-to-end digital pathology platform for breast cancer screening in low-resource settings. Secured USD 250K ACS grant. FDA pre-submission prepared.", images: [], tags: ["Computer Vision", "Medical Device", "Regulatory", "Global Health"], links: [{ label: "CBID Feature", url: "https://cbid.bme.jhu.edu/2024/01/08/ekyaalo-diagnostics-breast-cancer-equity-project-in-uganda-265k-grant/", showInLinksTab: true }], featured: true, galleryEmoji: "🔬", showInUpdates: true, updateDate: "2023-10" },
+  { id: "ekyaalo", name: "Ekyaalo Diagnostics Platform", theme: "Global Health", type: "own", desc: "AI-powered digital pathology platform integrating smartphones, microscopes, and machine learning for point-of-care breast cancer diagnosis in low-resource settings. Secured USD 265K ACS grant. FDA pre-submission prepared. 90+% diagnostic accuracy.", images: [], tags: ["Computer Vision", "Medical Device", "Regulatory", "Global Health", "AI"], links: [{ label: "CBID Feature", url: "https://cbid.bme.jhu.edu/2024/01/08/ekyaalo-diagnostics-breast-cancer-equity-project-in-uganda-265k-grant/", showInLinksTab: true }], featured: true, galleryEmoji: "🔬", showInUpdates: true, updateDate: "2023-10" },
   { id: "cgm", name: "Continuous Glucose Monitor", theme: "Innovation", type: "own", desc: "Feasibility study for minimally invasive continuous glucose monitoring using novel magnetic nanoparticles.", images: [], tags: ["Nanotechnology", "Biosensors", "Research"], links: [], galleryEmoji: "🧪" },
   { id: "sterilization", name: "Surgical Sterilization Device", theme: "Global Health", type: "own", desc: "Designed sterilization solutions for surgical equipment with Makerere University, Uganda.", images: [], tags: ["Design", "Global Health", "Low-Resource"], links: [], galleryEmoji: "🏥" },
   { id: "mosaic", name: "Diagnostic Hardware — Mosaic", theme: "Innovation", type: "own", desc: "20% improvement in manufacturing assembly efficiency through testing and optimization.", images: [], tags: ["Hardware", "Manufacturing", "Diagnostics"], links: [], galleryEmoji: "⚙️" },
@@ -143,16 +145,17 @@ const ORGANIZATIONS = [
   { id: "o2", name: "Johns Hopkins University", group: "academic", role: "M.S.E. · Instructor · Fellow", period: "2022–2024", logo: "🏛️", url: "https://cbid.bme.jhu.edu/" },
   { id: "o3", name: "UC Berkeley", group: "academic", role: "B.S. Bioengineering · IT", period: "2020–2022", logo: "🐻", url: "https://bioeng.berkeley.edu/" },
   { id: "o4", name: "Ocular Therapeutix", group: "employer", role: "Market Access Strategist", period: "2023", logo: "👁️", url: "https://www.ocutx.com/" },
-  { id: "o5", name: "Mosaic Consulting", group: "employer", role: "Hardware Systems Engineer", period: "2022", logo: "🔩", url: "" },
+  { id: "o5", name: "Mosaic Consulting", group: "employer", role: "Hardware Systems Engineer", period: "2022", logo: "🔩", url: "https://www.linkedin.com/company/mosaic-design-labs/" },
   { id: "o6", name: "Aravind Eye Hospital", group: "partner", role: "Clinical Partnership", period: "2023", logo: "🏥", url: "https://aravind.org/" },
   { id: "o7", name: "Makerere University", group: "partner", role: "Field Research", period: "2021–2023", logo: "🌍", url: "https://www.mak.ac.ug/" },
-  { id: "o8", name: "American Cancer Society", group: "partner", role: "USD 250K Grant", period: "2023", logo: "🎗️", url: "https://www.cancer.org/" },
+  { id: "o8", name: "American Cancer Society", group: "partner", role: "USD 265K Grant", period: "2023", logo: "🎗️", url: "https://www.cancer.org/" },
   { id: "o9", name: "Engineering World Health", group: "affiliation", role: "Medical Device Design", period: "2021", logo: "⚕️", url: "https://www.ewh.org/" },
   { id: "o10", name: "Singapore Armed Forces", group: "employer", role: "Lieutenant — Guards", period: "2016–2017", logo: "🎖️", url: "https://www.mindef.gov.sg/web/portal/army/" },
   { id: "o11", name: "Hwa Chong Institution", group: "academic", role: "A-Levels", period: "", logo: "🏫", url: "https://www.hci.edu.sg/" },
   { id: "o12", name: "Santa Monica College", group: "academic", role: "A.A. + A.S. · 4.00", period: "2018–2020", logo: "📚", url: "https://www.smc.edu/" },
   { id: "o13", name: "Tau Beta Pi", group: "affiliation", role: "Engineering Honor Society", period: "", logo: "🏅", url: "https://www.tbp.org/" },
   { id: "o14", name: "Alpha Gamma Sigma", group: "affiliation", role: "Honor Society", period: "", logo: "🎓", url: "https://www.alphagammasigma.org/" },
+  { id: "o15", name: "AIRS / Direct Relief", group: "partner", role: "Global Health Advisory", period: "2025", logo: "🫁", url: "" },
 ];
 const ORG_GROUPS = [
   { key: "employer", label: "Employers", icon: "💼" },
@@ -162,30 +165,33 @@ const ORG_GROUPS = [
 ];
 const BLOG_POSTS = [];
 const SOCIAL_POSTS = [
-  { id: "s1", title: "USD 250K Grant Win", url: "#", date: "2023-10-01", source: "LinkedIn", excerpt: "American Cancer Society competitive funding for Ekyaalo Diagnostics" },
-  { id: "s2", title: "Uganda Field Research", url: "#", date: "2023-06-15", source: "LinkedIn", excerpt: "Multi-institutional usability study — clinical immersion" },
-  { id: "s3", title: "Top Graduate — UC Berkeley", url: "#", date: "2022-05-13", source: "LinkedIn", excerpt: "Bioengineering Departmental Citation, High Honors" },
-  { id: "s4", title: "Map the Systems 2024 Winner", url: "#", date: "2024-06-01", source: "LinkedIn", excerpt: "Systems Mapping competition — global winner" },
+  { id: "s1", title: "USD 265K Grant Win", url: "https://cbid.bme.jhu.edu/2024/01/08/ekyaalo-diagnostics-breast-cancer-equity-project-in-uganda-265k-grant/", date: "2024-01-08", source: "JHU", excerpt: "American Cancer Society competitive funding for Ekyaalo Diagnostics" },
+  { id: "s2", title: "Uganda Field Research", url: "https://news.mak.ac.ug/2025/09/ekyaalo-diagnostics-johns-hopkins-university-partners-with-makerere-and-must-to-advance-ai-innovation-for-breast-cancer-diagnosis/", date: "2025-09-01", source: "Makerere University", excerpt: "Multi-institutional usability study — clinical immersion" },
+  { id: "s3", title: "Top Graduate — UC Berkeley", url: "https://bioeng.berkeley.edu/undergrad/student-awards", date: "2022-05-13", source: "UC Berkeley", excerpt: "Bioengineering Departmental Citation, High Honors" },
+  { id: "s4", title: "Map the Systems 2024 Winner", url: "https://imagine.jhu.edu/blog/2024/05/16/inaugural-champions-of-map-the-system-hopkins-announced/", date: "2024-05-16", source: "JHU", excerpt: "Systems Mapping competition — global winner" },
 ];
 const PUBLICATIONS = [
-  { id: "p1", title: "Women's Health Diagnostics — Multiple Publications", venue: "Johns Hopkins / CBID", type: "paper", year: "2022–2024", pdfUrl: "#" },
-  { id: "p2", title: "Magnetic Nanoparticle Characterization for Biosensing", venue: "Berkeley Imaging Systems Lab", type: "paper", year: "2022", pdfUrl: "#" },
-  { id: "p3", title: "Map the Systems 2024 — Systems Mapping", venue: "Global Competition", type: "poster", year: "2024", pdfUrl: "#" },
+  { id: "p1", title: "Navigating Breast Cancer Innovation in Uganda", venue: "IEEE Pulse", type: "paper", year: "2024", pdfUrl: "#" },
+  { id: "p2", title: "Uganda-based Survey of Challenges in Breast Cancer Detection in LMICs", venue: "JCTS / Translational Science", type: "paper", year: "2023", pdfUrl: "#" },
+  { id: "p3", title: "Magnetic Nanoparticle Characterization for Biosensing", venue: "Berkeley Imaging Systems Lab", type: "paper", year: "2022", pdfUrl: "#" },
+  { id: "p4", title: "Map the Systems 2024 — Systems Mapping", venue: "Global Competition", type: "poster", year: "2024", pdfUrl: "#" },
 ];
 const EXPERIENCE = [
-  { role: "Head of R&D", org: "Ekyaalo Diagnostics, Maryland", period: "Apr 2023 – Aug 2024", showOnResume: true, bullets: ["Led end-to-end development of digital pathology platform for low-resource healthcare environments", "Secured USD 250K in competitive funding from the American Cancer Society", "Prepared FDA pre-submission documentation for novel medical device"] },
-  { role: "Bioengineering Design Instructor", org: "Johns Hopkins University", period: "Aug 2022 – May 2024", showOnResume: true, bullets: ["Delivered instruction across undergraduate, graduate, and professional courses", "Mentored teams on pediatric monitoring, digital pathology, and biopsy instrumentation", "Co-developed global health field curriculum — Uganda & Kenya"] },
-  { role: "Global Market Access Strategist (Intern)", org: "Ocular Therapeutix, Boston", period: "Apr – Sep 2023", showOnResume: true, bullets: ["Initiated strategic engagement with Aravind Eye Hospital leadership"] },
-  { role: "Women's Health Research Fellow", org: "JHU CBID, Baltimore", period: "Jun 2022 – May 2023", showOnResume: true, bullets: ["Multiple publications on women's health challenges", "Planned and executed multi-institutional usability study in Uganda"] },
-  { role: "Nanoparticle Research Engineer", org: "Berkeley Imaging Systems Lab", period: "Aug 2021 – May 2022", showOnResume: true, bullets: ["Established feasibility of magnetic nanoparticles for continuous glucose monitoring"] },
-  { role: "Hardware Systems Engineer", org: "Mosaic Consulting, Berkeley", period: "Mar – Jun 2022", showOnResume: true, bullets: ["Improved manufacturing assembly efficiency by 20%"] },
-  { role: "Senior IT Consultant", org: "UC Berkeley", period: "Aug 2020 – Mar 2022", showOnResume: true, bullets: ["Delivered frontline technical support; increased operational efficiency by 20%"] },
+  { role: "Global Health Advisor (Pro Bono)", org: "AIRS Oxygen Infrastructure Project, The Gambia", period: "2025", showOnResume: true, bullets: ["Provided independent advisory support for a USD 5.5M medical oxygen delivery and solar energy infrastructure initiative across West Africa (The Gambia, Liberia, Sierra Leone), a collaboration between Johns Hopkins, SCCM, and Direct Relief"] },
+  { role: "Head of R&D", org: "Ekyaalo Diagnostics, Maryland", period: "Apr 2023 – Aug 2024", showOnResume: true, bullets: ["Led end-to-end strategy and execution of an AI-powered digital pathology platform for point-of-care breast cancer diagnosis in low-resource settings", "Secured USD 265K in competitive funding from the American Cancer Society", "Prepared FDA pre-submission documentation and regulatory strategy for a novel Class II medical device", "Planned and executed a multi-institutional usability research study across three sites in Uganda", "Designed front-end and back-end of the software prototype; developed computer vision model achieving 90+% diagnostic accuracy"] },
+  { role: "Global Market Access Strategist (Intern)", org: "Ocular Therapeutix, Boston", period: "Apr 2023 – Nov 2023", showOnResume: true, bullets: ["Conducted market landscape analysis for ophthalmic drug delivery in emerging markets", "Initiated strategic engagement with executive leadership at Aravind Eye Hospital, developing international clinical partnership and market entry proposals"] },
+  { role: "MedTech Consultant (Independent)", org: "Confidential Client, USA", period: "2023", showOnResume: true, bullets: ["Assessed technical and clinical feasibility of a novel ultrasound microbubble technology for detection and removal of blood clots in atherosclerosis"] },
+  { role: "Bioengineering Design Instructor", org: "Johns Hopkins University", period: "Aug 2022 – May 2024", showOnResume: true, bullets: ["Delivered instruction across undergraduate, graduate, and professional bioengineering courses for 50+ students; awarded Most Outstanding Teaching Assistant", "Mentored multidisciplinary teams on medical device projects spanning pediatric monitoring, digital pathology, and biopsy instrumentation", "Co-developed and led global health field curriculum with clinical immersion and healthcare systems research across Uganda and Kenya"] },
+  { role: "Women's Health Research Fellow", org: "JHU CBID, Baltimore", period: "Jun 2022 – May 2023", showOnResume: true, bullets: ["Led collaborative research on women's health equity across institutions in the US and Uganda on a fully-funded fellowship", "Published multiple peer-reviewed papers in biomedical engineering and global public health", "Initiated the CBID Women's Health Initiative: drafted strategic plan, created project management infrastructure, and led first meetings with clinical advisors"] },
+  { role: "Nanoparticle Research Engineer", org: "Berkeley Imaging Systems Lab", period: "Aug 2021 – May 2022", showOnResume: true, bullets: ["Established feasibility of magnetic nanoparticles for continuous glucose monitoring; characterized and published novel nanoparticle properties"] },
+  { role: "Hardware Systems Engineer", org: "Mosaic Consulting, Berkeley", period: "Mar 2022 – Jun 2022", showOnResume: true, bullets: ["Improved manufacturing assembly efficiency by 20% through systematic testing, validation, and optimization of diagnostic hardware prototypes"] },
+  { role: "Senior IT Consultant", org: "UC Berkeley", period: "Aug 2020 – Mar 2022", showOnResume: true, bullets: ["Delivered frontline technical support across enterprise IT systems; promoted from IT Consultant to Senior IT Consultant", "Initiated workflow optimization and data tracking improvements, increasing team operational efficiency by 20%"] },
   { role: "Medical Device Design Intern", org: "Engineering World Health", period: "Jun – Jul 2021", showOnResume: false, bullets: ["Designed sterilization solutions with Makerere University, Uganda"] },
   { role: "Co-founder & President", org: "SE Asian Cultural Club, SMC", period: "Aug – Dec 2019", showOnResume: false, bullets: ["Founded a Southeast Asian community — still active today"] },
-  { role: "Lieutenant", org: "Singapore Armed Forces", period: "Feb 2016 – May 2017", showOnResume: true, bullets: ["Led and trained 40+ personnel in Guards formation; 100% graduation rate"] },
+  { role: "Lieutenant", org: "Singapore Armed Forces", period: "Feb 2016 – May 2017", showOnResume: true, bullets: ["Led and trained 40+ personnel in operational planning and execution; achieved 100% platoon graduation rate"] },
 ];
 const ACHIEVEMENTS = [
-  { title: "USD 250K Grant — American Cancer Society", org: "Ekyaalo Diagnostics", detail: "Competitive funding" },
+  { title: "USD 265K Grant — American Cancer Society", org: "Ekyaalo Diagnostics", detail: "Competitive funding" },
   { title: "Bioengineering Departmental Citation", org: "UC Berkeley", detail: "Top Graduate" },
   { title: "Most Outstanding Teaching Assistant", org: "Johns Hopkins University" },
   { title: "Map the Systems 2024", org: "Systems Mapping Winner" },
@@ -204,7 +210,7 @@ const COURSEWORK = [
   { institution: "UC Berkeley", courses: ["Tissue Engineering", "Cell Engineering", "Biomedical Imaging", "Biomedical Physiology", "Bionanoscience", "Biotech Entrepreneurship", "Senior Design Project", "Honors Research"] },
   { institution: "Santa Monica College", courses: ["Organic Chemistry I & II", "Cell Biology", "Genetics", "Physics I–III", "Multivariable Calculus", "Linear Algebra", "Differential Equations", "C Programming"] },
 ];
-const CERTIFICATIONS = [{ name: "Nonprofit Fundraising Essentials" }, { name: "Business Models for Social Enterprise" }, { name: "Systems Thinking in Public Health" }];
+const CERTIFICATIONS = [{ name: "Professional Scrum Master I" }, { name: "Google Project Management" }, { name: "Business Analytics with Excel" }, { name: "Lean Startup Principles for the Social Sector" }, { name: "Epidemiology in Public Health Practice" }, { name: "Nonprofit Fundraising Essentials" }, { name: "Business Models for Social Enterprise" }, { name: "Systems Thinking in Public Health" }];
 
 const INSIGHTS = [
   { id: "i1", title: "Biotech as a Career — A Guide for Undergrads", status: "coming", excerpt: "Navigating the path from bench science to biotech industry.", tags: ["Career", "Biotech"], url: "" },
@@ -214,10 +220,11 @@ const INSIGHTS = [
 ];
 
 const MANUAL_UPDATES = [
+  { date: "2025-01", text: "Global Health Advisor — AIRS Oxygen Infrastructure Project, The Gambia", tag: "Advisory" },
   { date: "2024-06", text: "Map the Systems 2024 — Winner", tag: "Award" },
   { date: "2024-05", text: "Based in Singapore & USA — open to opportunities", tag: "Update" },
   { date: "2024-05", text: "Completed M.S.E. at Johns Hopkins", tag: "Education" },
-  { date: "2023-10", text: "Secured USD 250K ACS grant for Ekyaalo", tag: "Milestone" },
+  { date: "2023-10", text: "Secured USD 265K ACS grant for Ekyaalo", tag: "Milestone" },
 ];
 
 function buildUpdates() {
@@ -542,7 +549,7 @@ export default function Portfolio() {
         <nav style={{ position: "sticky", top: 0, zIndex: 100, background: `${C.bg}e0`, backdropFilter: "blur(16px)", borderBottom: `1px solid ${C.border}` }}>
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 20px", height: 56, display: "flex", alignItems: "center" }}>
             <button onClick={() => handleNavClick("home")} style={{ background: "none", border: `1px solid ${page === "home" ? `${C.primary}30` : "transparent"}`, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, padding: "6px 14px 6px 6px", borderRadius: 10, transition: "all 0.2s" }} onMouseEnter={e => e.currentTarget.style.background = `${C.primary}15`} onMouseLeave={e => e.currentTarget.style.background = "none"}>
-              <div style={{ width: 28, height: 28, borderRadius: 6, background: `linear-gradient(135deg, ${C.primary}, ${C.secondary})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "#fff" }}>{S.initials}</div>
+              {S.logoImage ? <img src={S.logoImage} alt={S.initials} style={{ width: 28, height: 28, borderRadius: 6, objectFit: "cover" }} /> : <div style={{ width: 28, height: 28, borderRadius: 6, background: `linear-gradient(135deg, ${C.primary}, ${C.secondary})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: S.logoIcon ? 16 : 11, fontWeight: 800, color: "#fff" }}>{S.logoIcon || S.initials}</div>}
               <span style={{ fontSize: 14 }}><span style={{ fontWeight: 400, color: C.textMuted }}>{S.firstName}</span><span style={{ color: C.textDim, margin: "0 2px" }}>·</span><span style={{ fontWeight: 700, color: C.text }}>{S.lastName}</span></span>
             </button>
             {!m && <div style={{ display: "flex", gap: 2, marginLeft: 4 }}>{pages.filter(p => p.key !== "home" || S.showHomeInMenu).map(p => <button key={p.key} onClick={() => handleNavClick(p.key)} style={{ padding: "6px 12px", fontSize: 13, cursor: "pointer", background: page === p.key ? `${C.text}0d` : "transparent", color: page === p.key ? C.text : C.textMuted, border: "none", borderRadius: 6, fontWeight: page === p.key ? 600 : 400 }}>{p.label}</button>)}</div>}
