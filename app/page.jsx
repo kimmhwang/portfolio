@@ -110,6 +110,10 @@ const SITE_CONFIG = {
 
   /* ═══ 7. NAVIGATION ═══ */
   showHomeInMenu: false,  // false = name/logo is the home button
+
+  /* ═══ 8. ANNOUNCEMENT BANNER ═══ */
+  announcement: "WEBSITE CONTENTS ARE STILL BEING UPDATED. PLEASE USE RESUME AS STANDARD.",  // Set to "" to hide
+  announcementDismissible: true,  // Allow visitors to close the banner
 };
 
 /* ═══ Shorthand access ═══ */
@@ -222,9 +226,10 @@ const INSIGHTS = [
 const MANUAL_UPDATES = [
   { date: "2025-01", text: "Global Health Advisor — AIRS Oxygen Infrastructure Project, The Gambia", tag: "Advisory" },
   { date: "2024-06", text: "Map the Systems 2024 — Winner", tag: "Award" },
-  { date: "2024-05", text: "Based in Singapore & USA — open to opportunities", tag: "Update" },
   { date: "2024-05", text: "Completed M.S.E. at Johns Hopkins", tag: "Education" },
   { date: "2023-10", text: "Secured USD 265K ACS grant for Ekyaalo", tag: "Milestone" },
+  { date: "2022-05", text: "Completed BSc. at UC Berkeley - Departmental Citation", tag: "Education" },
+
 ];
 
 function buildUpdates() {
@@ -527,6 +532,7 @@ export default function Portfolio() {
   const [colorMode, setColorMode] = useState("dark"); // "dark" | "light"
   const [isAccessible, setIsAccessible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [announcementDismissed, setAnnouncementDismissed] = useState(false);
   const m = useIsMobile();
   const themeKey = isAccessible
     ? (colorMode === "light" ? "accessibleLight" : "accessible")
@@ -549,7 +555,7 @@ export default function Portfolio() {
         <nav style={{ position: "sticky", top: 0, zIndex: 100, background: `${C.bg}e0`, backdropFilter: "blur(16px)", borderBottom: `1px solid ${C.border}` }}>
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 20px", height: 56, display: "flex", alignItems: "center" }}>
             <button onClick={() => handleNavClick("home")} style={{ background: "none", border: `1px solid ${page === "home" ? `${C.primary}30` : "transparent"}`, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, padding: "6px 14px 6px 6px", borderRadius: 10, transition: "all 0.2s" }} onMouseEnter={e => e.currentTarget.style.background = `${C.primary}15`} onMouseLeave={e => e.currentTarget.style.background = "none"}>
-              {S.logoImage ? <img src={S.logoImage} alt={S.initials} style={{ width: 28, height: 28, borderRadius: 6, objectFit: "cover" }} /> : <div style={{ width: 28, height: 28, borderRadius: 6, background: `linear-gradient(135deg, ${C.primary}, ${C.secondary})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: S.logoIcon ? 16 : 11, fontWeight: 800, color: "#fff" }}>{S.logoIcon || S.initials}</div>}
+              {S.logoImage ? <img src={S.logoImage} alt={S.initials} style={{ width: 28, height: 28, borderRadius: "50%", objectFit: "cover" }} /> : <div style={{ width: 28, height: 28, borderRadius: 6, background: `linear-gradient(135deg, ${C.primary}, ${C.secondary})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: S.logoIcon ? 16 : 11, fontWeight: 800, color: "#fff" }}>{S.logoIcon || S.initials}</div>}
               <span style={{ fontSize: 14 }}><span style={{ fontWeight: 400, color: C.textMuted }}>{S.firstName}</span><span style={{ color: C.textDim, margin: "0 2px" }}>·</span><span style={{ fontWeight: 700, color: C.text }}>{S.lastName}</span></span>
             </button>
             {!m && <div style={{ display: "flex", gap: 2, marginLeft: 4 }}>{pages.filter(p => p.key !== "home" || S.showHomeInMenu).map(p => <button key={p.key} onClick={() => handleNavClick(p.key)} style={{ padding: "6px 12px", fontSize: 13, cursor: "pointer", background: page === p.key ? `${C.text}0d` : "transparent", color: page === p.key ? C.text : C.textMuted, border: "none", borderRadius: 6, fontWeight: page === p.key ? 600 : 400 }}>{p.label}</button>)}</div>}
@@ -579,6 +585,12 @@ export default function Portfolio() {
           </div>
           {m && menuOpen && <div style={{ padding: "8px 20px 16px", borderTop: `1px solid ${C.border}`, background: C.bg }}>{pages.filter(p => p.key !== "home" || S.showHomeInMenu).map(p => <button key={p.key} onClick={() => handleNavClick(p.key)} style={{ display: "block", width: "100%", textAlign: "left", padding: "10px 0", fontSize: 14, background: "none", border: "none", color: page === p.key ? C.text : C.textMuted, fontWeight: page === p.key ? 600 : 400, cursor: "pointer", borderBottom: `1px solid ${C.border}` }}>{p.label}</button>)}<div style={{ display: "flex", gap: 8, marginTop: 12 }}>{S.socials.map((s, i) => <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" style={{ width: 34, height: 34, borderRadius: 8, background: C.surface, border: `1px solid ${C.border}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: C.textMuted, textDecoration: "none" }}>{s.icon}</a>)}</div></div>}
         </nav>
+        {S.announcement && !announcementDismissed && (
+          <div style={{ background: `linear-gradient(90deg, ${C.primary}22, ${C.secondary}22)`, borderBottom: `2px solid ${C.primary}40`, padding: "10px 20px", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
+            <span style={{ fontSize: 13, color: C.primary, fontWeight: 600, textAlign: "center", flex: 1, letterSpacing: 0.2 }}>&#9432; {S.announcement}</span>
+            {S.announcementDismissible && <button onClick={() => setAnnouncementDismissed(true)} style={{ background: `${C.primary}15`, border: `1px solid ${C.primary}30`, borderRadius: 4, cursor: "pointer", color: C.primary, fontSize: 13, padding: "2px 6px", lineHeight: 1 }}>✕</button>}
+          </div>
+        )}
         <main style={{ maxWidth: 1200, margin: "0 auto", padding: m ? "0 16px" : "0 32px" }}>
           {page === "home" && <HomePage setPage={handleNavClick} onGalleryAction={handleGalleryAction} />}
           {page === "about" && <AboutPage initialSection={navParams.initialSection} />}
