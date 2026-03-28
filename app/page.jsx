@@ -16,6 +16,7 @@ const SITE_CONFIG = {
   logoImage: "/files/images/logo.png", // Path to image file for logo. Leave "" to use logoIcon or initials.
   email: "kimhwangyeo@gmail.com",
   resumeUrl: "/files/resume.pdf",   // "/files/resume.pdf"
+  location: "Singapore & USA",
 
   /* ═══ 2. PAGE CONTENT — Edit all page headers and text here ═══ */
   pages: {
@@ -53,6 +54,10 @@ const SITE_CONFIG = {
       { title: "Last-mile mindset", desc: "Technology only matters if it reaches the people who need it most. I design for deployment in the hardest contexts, not just the easiest." },
       { title: "Build across boundaries", desc: "The best solutions emerge at the intersection of engineering, medicine, and business. I operate fluently across all three." },
       { title: "Ship, learn, iterate", desc: "Perfection in the lab means nothing without impact in the field. I bias toward real-world testing and rapid iteration." },
+    ],
+    ethics: [
+      { title: "Equity first", desc: "Design for the most underserved, not the most profitable. Technology should close gaps, not widen them." },
+      { title: "Sustainability over dependency", desc: "Build capacity, not reliance. Solutions should empower communities and outlast the project that created them." },
     ],
   },
 
@@ -318,7 +323,7 @@ const ConnectSection = ({ flashTrigger = 0 }) => {
           <a href={`mailto:${S.email}`} style={{ padding: "10px 20px", background: C.primary, color: "#fff", border: "none", borderRadius: 10, fontSize: 13, fontWeight: 600, textDecoration: "none" }}>✉ {S.email}</a>
           {S.socials.map((s, i) => <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" title={s.name} style={{ width: 40, height: 40, borderRadius: 10, background: C.surface, border: `1px solid ${C.border}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: C.textMuted, textDecoration: "none" }}>{s.icon}</a>)}
         </div>
-        <p style={{ fontSize: 11, color: C.textDim, marginTop: 20, marginBottom: 0 }}>Singapore & USA</p>
+        <p style={{ fontSize: 11, color: C.textDim, marginTop: 20, marginBottom: 0 }}>{S.location}</p>
       </section>
     </div>
   );
@@ -360,6 +365,10 @@ const HomePage = ({ setPage, onGalleryAction }) => {
         <SH sub="Where disciplines converge">Philosophy</SH>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>{S.pillars.map((p, i) => <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}><span style={{ padding: "4px 12px", background: `${p.color}12`, border: `1px solid ${p.color}28`, borderRadius: 8, fontSize: 11, color: p.color, fontWeight: 600 }}>{p.label}</span>{i < S.pillars.length - 1 && <span style={{ color: C.textDim }}>+</span>}</div>)}<span style={{ color: C.textDim, margin: "0 2px" }}>=</span>{S.themes.map((t, i) => <span key={i} style={{ padding: "4px 10px", background: `${t.color}18`, border: `1px solid ${t.color}35`, borderRadius: 8, fontSize: 11, color: t.color, fontWeight: 700 }}>{t.icon} {t.label}</span>)}</div>
         <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : `repeat(${S.themes.length}, 1fr)`, gap: 12 }}>{S.themes.map((t, i) => <div key={i} onClick={() => setActiveTheme(i)} style={{ padding: "16px 14px", background: activeTheme === i ? `${t.color}0a` : C.surface, border: `1px solid ${activeTheme === i ? `${t.color}35` : C.border}`, borderRadius: 10, cursor: "pointer", transition: "all 0.2s" }}><div style={{ fontSize: 24, marginBottom: 6 }}>{t.icon}</div><div style={{ fontSize: 13, fontWeight: 600, color: t.color, marginBottom: 4 }}>{t.label}</div><p style={{ fontSize: 12, color: C.textMuted, lineHeight: 1.5, margin: 0 }}>{t.desc}</p></div>)}</div>
+        {S.philosophy.ethics.length > 0 && <div style={{ marginTop: 16, padding: "16px 18px", background: `${C.accent}08`, border: `1px solid ${C.accent}20`, borderRadius: 10 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.accent, marginBottom: 10 }}>Code of Ethics</div>
+          <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : `repeat(${S.philosophy.ethics.length}, 1fr)`, gap: 12 }}>{S.philosophy.ethics.map((e, i) => <div key={i} style={{ fontSize: 12, lineHeight: 1.6 }}><span style={{ fontWeight: 600, color: C.text }}>{e.title}.</span>{" "}<span style={{ color: C.textMuted }}>{e.desc}</span></div>)}</div>
+        </div>}
       </section>
       <section style={{ padding: "40px 0", borderTop: `1px solid ${C.border}` }}><SH sub="Recent highlights">Latest Updates</SH><div style={{ display: "flex", flexDirection: "column", gap: 8 }}>{updates.map((u, i) => <div key={i} style={{ display: "flex", alignItems: "center", gap: 14, padding: "11px 16px", background: C.surface, borderRadius: 8, border: `1px solid ${C.border}`, flexWrap: m ? "wrap" : "nowrap" }}><div style={{ fontSize: 11, color: C.textDim, fontWeight: 600, minWidth: 44 }}>{u.date}</div>{!m && <div style={{ width: 1, height: 16, background: C.border }} />}<div style={{ flex: 1, fontSize: 13, color: C.text }}>{u.text}</div><Pill small>{u.tag}</Pill></div>)}</div></section>
       <section style={{ padding: "40px 0", borderTop: `1px solid ${C.border}` }}>
@@ -413,6 +422,10 @@ const AboutPage = ({ initialSection }) => {
         {philOpen && (
           <div style={{ padding: m ? "16px" : "20px 24px", background: `${C.primary}04`, borderTop: `1px solid ${C.border}` }}>
             <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 12 }}>{S.philosophy.principles.map((p, i) => <div key={i} style={{ padding: 16, background: `${C.bg}cc`, borderRadius: 10, border: `1px solid ${C.border}` }}><div style={{ fontSize: 14, fontWeight: 600, color: C.primary, marginBottom: 6 }}>{p.title}</div><p style={{ fontSize: 12, color: C.textMuted, lineHeight: 1.6, margin: 0 }}>{p.desc}</p></div>)}</div>
+            {S.philosophy.ethics.length > 0 && <>
+              <div style={{ fontSize: 13, fontWeight: 700, color: C.accent, marginTop: 20, marginBottom: 10 }}>Code of Ethics</div>
+              <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 12 }}>{S.philosophy.ethics.map((e, i) => <div key={i} style={{ padding: 16, background: `${C.accent}08`, borderRadius: 10, border: `1px solid ${C.accent}20` }}><div style={{ fontSize: 14, fontWeight: 600, color: C.accent, marginBottom: 6 }}>{e.title}</div><p style={{ fontSize: 12, color: C.textMuted, lineHeight: 1.6, margin: 0 }}>{e.desc}</p></div>)}</div>
+            </>}
           </div>
         )}
       </div>

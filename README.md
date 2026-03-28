@@ -10,14 +10,43 @@ Edit: open `app/page.jsx` → modify SITE_CONFIG and DATA arrays at top.
 
 ---
 
-## Design Criteria
+## Design Specifications
 
-1. **Single-file editability** — All content, config, colors, text in `app/page.jsx`. No CMS.
-2. **Data-driven** — Add item to array → auto-populates across all relevant pages and filters.
-3. **Professional + welcoming** — Dark charcoal base, warm greens/blues. Not cold, not casual.
-4. **Mobile-first responsive** — Every component adapts. Hamburger menu on mobile.
-5. **Accessible** — Color-blind safe toggle (blue/orange, no red/green). High contrast mode.
-6. **Audience-aware** — Hiring managers see Experience first. Philosophy collapsible. Mentors/Orgs have distinct "network" styling.
+### Core Principles
+1. **Single-file editability** — All content, config, colors, text in `app/page.jsx`. No CMS, no database.
+2. **Data-driven rendering** — Add item to array → auto-populates across all relevant pages, filters, and gallery.
+3. **Professional + welcoming** — Dark charcoal base (#1a1a1e), warm greens/blues. Not cold, not casual.
+4. **Mobile-first responsive** — Every component adapts. Hamburger menu on mobile, adaptive grids on desktop.
+5. **Accessible** — Color-blind safe toggle (blue/orange, no red/green). High contrast mode for both light and dark.
+6. **Audience-aware** — Hiring managers see Experience first. Philosophy collapsible (starts closed). Mentors/Orgs have distinct "personal network" styling.
+
+### Architecture
+- **Framework**: Next.js 14 (App Router), React, single `app/page.jsx`
+- **Styling**: Inline styles with React theme context (`ThemeCtx`), no CSS framework
+- **State**: React `useState`/`useEffect`/`useContext` — no external state management
+- **Theming**: 4 color themes (Default Dark, Light, High Contrast Dark, High Contrast Light), toggled independently via light/dark and accessibility buttons
+- **Navigation**: SPA-style with `useState` for page routing, sticky nav, scroll-spy on About page
+
+### Layout & Visual Design
+- **Max width**: 1200px centered container
+- **Nav**: Sticky top bar with logo/name (home button), page tabs, theme toggles, social icons, CV download
+- **Name display**: `firstName` (light weight, muted) + `·` middot + `lastName` (bold, bright) — acts as home button
+- **Hero**: Gradient radial overlay, optional hero image, two-line headline with primary color emphasis
+- **Gallery**: Responsive grid (`auto-fill, minmax(220px, 1fr)`), filterable by type (Projects, Writings, Mentors, Blog, Posts)
+- **ConnectSection**: Reusable footer component on every page — centered card with gradient, flash animation on trigger, email CTA + social icons
+- **Philosophy**: Homepage shows convergence formula (pillars + themes) and Code of Ethics; About page has collapsible panel with principles + ethics
+
+### Interaction Design
+- **ConnectSection flash**: "Let's Connect" button scrolls to section and triggers a 2.2s glow animation (gradient bg, primary border, box-shadow) via React prop counter
+- **Gallery navigation**: Clicking project cards opens Work page to that project; clicking mentor cards scrolls to Mentors section on About
+- **Theme persistence**: Color mode and accessibility toggle stored in React state (resets on refresh)
+- **About page scroll-spy**: Active section detected by scroll position, sticky section tabs
+
+### Accessibility Features
+- Independent light/dark toggle (☾/☀) and high-contrast toggle (◐)
+- A11y toggle button itself styled in high-contrast orange (visible to those who need it)
+- Four full theme definitions: every UI element respects the active theme
+- No red/green color combinations for color-blind safety
 
 ---
 
@@ -25,18 +54,19 @@ Edit: open `app/page.jsx` → modify SITE_CONFIG and DATA arrays at top.
 
 ```
 SITE_CONFIG
-├── 1. IDENTITY — firstName, lastName, initials, logoIcon, email, resumeUrl
+├── 1. IDENTITY — firstName, lastName, initials, logoIcon, logoImage, email, resumeUrl, location
 ├── 2. PAGE CONTENT
 │   ├── pages.home — tagline, headline[], bio, heroImage
 │   ├── pages.about — headline, bio
 │   ├── pages.work — headline
 │   └── pages.insights — headline, bio, blogUrl, blogLabel, showPipeline
 ├── 3. CONNECT — tagline
-├── 4. PHILOSOPHY — headline, subtitle, principles[]
-├── 5. COLOR THEMES — colorThemes.default, colorThemes.light, colorThemes.accessible
+├── 4. PHILOSOPHY — headline, subtitle, principles[], ethics[]
+├── 5. COLOR THEMES — colorThemes.default, .light, .accessible, .accessibleLight
 ├── 6. THEMATIC AREAS — pillars[], themes[]
 ├── 7. SOCIALS — { name, icon, url, showInMenu, showInFooter }
-└── 8. NAVIGATION — showHomeInMenu
+├── 8. NAVIGATION — showHomeInMenu
+└── 9. ANNOUNCEMENT — announcement, announcementDismissible
 ```
 
 ### Key Config Features
@@ -44,6 +74,9 @@ SITE_CONFIG
 - **Page headers**: All in `SITE_CONFIG.pages` — edit headlines and bios in one place
 - **Pipeline toggle**: `pages.insights.showPipeline: false` hides coming-soon articles
 - **Philosophy**: Collapsible section, starts closed. Edit principles in `SITE_CONFIG.philosophy`
+- **Code of Ethics**: `SITE_CONFIG.philosophy.ethics[]` — displayed on Homepage and About
+- **Announcement banner**: Dismissible top banner, toggle with `announcementDismissible`
+- **Location**: `SITE_CONFIG.location` — displayed in ConnectSection footer
 
 ---
 
@@ -57,22 +90,32 @@ SITE_CONFIG
 | ORGANIZATIONS | About > Organizations | `id, name, group, role, period, logo, url` |
 | PUBLICATIONS | Work > Publications | `id, title, venue, type, year, pdfUrl` |
 | EXPERIENCE | About > Experience | `role, org, period, showOnResume, bullets[]` |
+| COURSEWORK | About > Education | `institution, courses[]` |
+| CERTIFICATIONS | About > Credentials | `name` |
 | INSIGHTS | Insights page | `id, title, status, excerpt, tags[], url` |
 | SOCIAL_POSTS | Gallery (Posts) | `id, title, url, date, source, excerpt` |
 
 ---
 
-## Placeholder URLs Needed
+## Post-Publication Checklist
 
-| What | Where in config | Status |
-|------|----------------|--------|
-| Resume PDF file | Upload to `/public/files/resume.pdf` | Pending |
-| Hero image | `pages.home.heroImage` | Pending |
-| Publication PDFs (3) | `PUBLICATIONS[].pdfUrl` | Pending |
-| GitHub URL | `socials[3].url` | Done |
-| Medium URL | `socials[4].url` + `pages.insights.blogUrl` | Done |
-| LinkedIn posts (4) | `SOCIAL_POSTS[].url` | Done |
-| Mosaic Consulting | `ORGANIZATIONS[4].url` | Done |
+### Must-Have (site incomplete without these)
+- [ ] Resume PDF → upload to `/public/files/resume.pdf`
+- [ ] Publication PDFs (4) → update `PUBLICATIONS[].pdfUrl` (currently `"#"`)
+- [ ] AIRS / Direct Relief org URL → update `ORGANIZATIONS[14].url` (currently `""`)
+- [ ] Favicon → add to `/public/`
+- [x] GitHub + Medium URLs
+- [x] LinkedIn post URLs in SOCIAL_POSTS
+
+### Should-Have (enriches the site)
+- [ ] Project images → add URLs to `PROJECTS[].images[]` (8 projects, all empty)
+- [ ] Mentor entries → populate `MENTORS[]` array
+- [ ] Writing entries → populate `WRITINGS[]` array
+- [ ] Blog post entries → populate `BLOG_POSTS[]` array
+- [ ] Hero image → set `pages.home.heroImage` path
+- [ ] Custom domain
+- [ ] First published Insight article (any of the 4 "coming soon" topics)
+- [ ] Remove announcement banner when content is complete (`announcement: ""`)
 
 ---
 
@@ -119,23 +162,18 @@ SITE_CONFIG
 - Writings with `showInGallery: true` appear in homepage Gallery
 - Writings structured like Projects (type pill, theme, description)
 
----
+### v1.2 — Content & Logo
+- Updated bio, headline, and page content
+- Logo image support (`logoImage` in SITE_CONFIG)
+- AIRS / Direct Relief advisory role added to EXPERIENCE and ORGANIZATIONS
+- Updated Ekyaalo project description (USD 265K grant, FDA pre-submission, 90%+ accuracy)
+- Announcement banner system (`announcement`, `announcementDismissible`)
+- High Contrast Light theme added (4 total color themes)
 
-## Post-Publication Checklist
-
-### Must-Have
-- [ ] Resume PDF → upload file to `/public/files/resume.pdf`
-- [x] GitHub + Medium URLs
-- [x] LinkedIn post URLs in SOCIAL_POSTS
-- [ ] Publication PDFs
-- [ ] Favicon
-
-### Should-Have
-- [ ] Project images
-- [ ] Mentor entries
-- [ ] Blog/Writing entries
-- [ ] Custom domain
-- [ ] First published Insight article
+### v1.3 — Ethics, Modularity & Documentation
+- Code of Ethics section: `SITE_CONFIG.philosophy.ethics[]` displayed on Homepage (accent card below theme cards) and About page (inside collapsible philosophy panel)
+- `location` field added to SITE_CONFIG (was hardcoded in ConnectSection)
+- README updated with full design specifications, architecture notes, and comprehensive post-publication checklist
 
 ---
 
