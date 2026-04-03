@@ -25,7 +25,7 @@ const SITE_CONFIG = {
       headline: ["Building technology that", "reaches the last mile."],
       subtitle: "Bioengineering · Medical Devices · FDA Strategy · AI/ML in Healthcare",
       bio: `I'm Kim Hwang Yeo — a bioengineering professional with a track record of leading cross-functional R&D, securing competitive funding, and translating complex technical insights into strategic outcomes. Based in Singapore and the USA, with experience spanning healthcare technology, data analytics, product development, and global health programs across the United States, Singapore, and East Africa.`,
-      heroImage: "",  // "/files/images/hero.jpg" or ""
+      heroImage: "/files/images/hero.jpg"
     },
     about: {
       headline: "About",
