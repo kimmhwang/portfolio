@@ -23,6 +23,7 @@ const SITE_CONFIG = {
     home: {
       tagline: "Bioengineering · Global Health · Innovation",
       headline: ["Building technology that", "reaches the last mile."],
+      subtitle: "Bioengineering · Medical Devices · FDA Strategy · AI/ML in Healthcare",
       bio: `I'm Kim Hwang Yeo — a bioengineering professional with a track record of leading cross-functional R&D, securing competitive funding, and translating complex technical insights into strategic outcomes. Based in Singapore and the USA, with experience spanning healthcare technology, data analytics, product development, and global health programs across the United States, Singapore, and East Africa.`,
       heroImage: "",  // "/files/images/hero.jpg" or ""
     },
@@ -60,6 +61,14 @@ const SITE_CONFIG = {
       { title: "Sustainability over dependency", desc: "Build capacity, not reliance. Solutions should empower communities and outlast the project that created them." },
     ],
   },
+
+  /* ═══ HIGHLIGHTS — Key metrics shown on About page ═══ */
+  highlights: [
+    { value: "USD 265K", label: "Grants Secured" },
+    { value: "90%+", label: "Diagnostic Accuracy" },
+    { value: "3", label: "Countries" },
+    { value: "4+", label: "Publications" },
+  ],
 
   /* ═══ 4. THEMES & COLORS ═══ */
   colorThemes: {
@@ -135,7 +144,7 @@ const PROJECTS = [
   { id: "cgm", name: "Continuous Glucose Monitor", theme: "Innovation", type: "own", desc: "Feasibility study for minimally invasive continuous glucose monitoring using novel magnetic nanoparticles.", images: [], tags: ["Nanotechnology", "Biosensors", "Research"], links: [], galleryEmoji: "🧪" },
   { id: "sterilization", name: "Surgical Sterilization Device", theme: "Global Health", type: "own", desc: "Designed sterilization solutions for surgical equipment with Makerere University, Uganda.", images: [], tags: ["Design", "Global Health", "Low-Resource"], links: [], galleryEmoji: "🏥" },
   { id: "mosaic", name: "Diagnostic Hardware — Mosaic", theme: "Innovation", type: "own", desc: "20% improvement in manufacturing assembly efficiency through testing and optimization.", images: [], tags: ["Hardware", "Manufacturing", "Diagnostics"], links: [], galleryEmoji: "⚙️" },
-  { id: "fda", name: "FDA Pre-Submission Strategy", theme: "Innovation", type: "own", desc: "Regulatory documentation supporting FDA pre-submission for a novel digital pathology device.", images: [], tags: ["Regulatory", "FDA", "Strategy"], links: [], galleryEmoji: "📋" },
+  { id: "fda", name: "FDA Pre-Submission Strategy", theme: "Innovation", type: "own", desc: "Regulatory documentation supporting FDA pre-submission for a novel digital pathology device.", images: [], tags: ["Regulatory", "FDA", "Strategy"], links: [], featured: true, galleryEmoji: "📋" },
   { id: "pediatric", name: "Pediatric Monitoring Systems", theme: "Innovation", type: "mentored", desc: "Mentored JHU student teams developing pediatric patient monitoring devices.", images: [], tags: ["Medical Device", "Mentorship"], links: [], galleryEmoji: "👶" },
   { id: "biopsy", name: "Biopsy Instrumentation", theme: "Innovation", type: "mentored", desc: "Guided development of novel biopsy tools through JHU bioengineering design courses.", images: [], tags: ["Instrumentation", "Design"], links: [], galleryEmoji: "🔧" },
   { id: "digipath-students", name: "Digital Pathology Student Projects", theme: "Global Health", type: "mentored", desc: "Supervised teams building digital pathology solutions at Johns Hopkins.", images: [], tags: ["Pathology", "AI", "Mentorship"], links: [], galleryEmoji: "🎓" },
@@ -294,7 +303,7 @@ const ProjectModal = ({ project, onClose }) => { const C = useTheme(); if (!proj
   <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(0,0,0,0.75)", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
     <div onClick={e => e.stopPropagation()} style={{ background: C.surface, borderRadius: 16, border: `1px solid ${tc}40`, maxWidth: 680, width: "100%", maxHeight: "85vh", overflow: "auto" }}>
       <div style={{ padding: "24px 24px 16px", borderBottom: `1px solid ${C.border}` }}><div style={{ display: "flex", justifyContent: "space-between" }}><div><div style={{ display: "flex", gap: 6, marginBottom: 8 }}><Pill color={tc} accent small>{project.theme}</Pill><Pill small>{project.type === "own" ? "Own" : "Mentored"}</Pill></div><h3 style={{ fontSize: 20, fontWeight: 700, color: C.text, margin: 0 }}>{project.name}</h3></div><button onClick={onClose} style={{ background: C.border, border: "none", borderRadius: 8, width: 32, height: 32, cursor: "pointer", color: C.textMuted, fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button></div><p style={{ fontSize: 14, color: C.textMuted, lineHeight: 1.7, margin: "12px 0 0" }}>{project.desc}</p><div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: 12 }}>{project.tags.map((t, j) => <Pill key={j} small>{t}</Pill>)}</div></div>
-      <div style={{ padding: "16px 24px", borderBottom: `1px solid ${C.border}` }}>{project.images.length > 0 ? <div style={{ display: "grid", gridTemplateColumns: `repeat(${Math.min(project.images.length, 3)}, 1fr)`, gap: 8 }}>{project.images.map((img, j) => <div key={j} style={{ borderRadius: 8, overflow: "hidden", background: C.bg, aspectRatio: "16/10" }}><img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} /></div>)}</div> : <div style={{ fontSize: 11, color: C.textDim, fontStyle: "italic" }}>Add image URLs to images array.</div>}</div>
+      <div style={{ padding: "16px 24px", borderBottom: `1px solid ${C.border}` }}>{project.images.length > 0 ? <div style={{ display: "grid", gridTemplateColumns: `repeat(${Math.min(project.images.length, 3)}, 1fr)`, gap: 8 }}>{project.images.map((img, j) => <div key={j} style={{ borderRadius: 8, overflow: "hidden", background: C.bg, aspectRatio: "16/10" }}><img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} /></div>)}</div> : <div style={{ padding: "24px 0", display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(135deg, ${tc}08, ${tc}03)`, borderRadius: 10 }}><span style={{ fontSize: 48, opacity: 0.5 }}>{PROJECTS.find(p => p.id === project.id)?.galleryEmoji || "📁"}</span></div>}</div>
       <div style={{ padding: "16px 24px 20px" }}>{project.links.length > 0 ? project.links.map((l, j) => <a key={j} href={l.url} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: `${tc}08`, border: `1px solid ${tc}20`, borderRadius: 8, textDecoration: "none", fontSize: 13, color: tc, fontWeight: 500, marginBottom: 6 }}>↗ {l.label}</a>) : <div style={{ fontSize: 11, color: C.textDim, fontStyle: "italic" }}>Add link objects.</div>}</div>
     </div>
   </div>
@@ -353,14 +362,22 @@ const HomePage = ({ setPage, onGalleryAction }) => {
           <div style={{ fontSize: 11, letterSpacing: 4, textTransform: "uppercase", color: C.textDim, marginBottom: 12 }}>{P.tagline}</div>
           {/* Hero headline — uses solid color instead of gradient text to avoid theme-switch disappearing */}
           <h1 style={{ fontSize: m ? 30 : 44, fontWeight: 300, margin: 0, lineHeight: 1.15, color: C.text }}>{P.headline[0]}<br /><span style={{ fontWeight: 700, color: C.primary }}>{P.headline[1]}</span></h1>
+          {P.subtitle && <div style={{ fontSize: m ? 12 : 14, color: C.textMuted, marginTop: 10, letterSpacing: 1.5, fontWeight: 500 }}>{P.subtitle}</div>}
           <p style={{ fontSize: m ? 14 : 15, color: C.textMuted, marginTop: 14, maxWidth: 680, lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: P.bio.replace(`${S.firstName} ${S.lastName}`, `<strong style="color:${C.text}">${S.firstName} ${S.lastName}</strong>`) }} />
           <div style={{ display: "flex", gap: 10, marginTop: 22, flexWrap: "wrap" }}>
-            <button onClick={() => setPage("about")} style={{ padding: "10px 22px", background: C.primary, color: "#fff", border: "none", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>About Me</button>
-            <button onClick={() => setPage("work")} style={{ padding: "10px 22px", background: "transparent", color: C.text, border: `1px solid ${C.border}`, borderRadius: 8, fontSize: 13, cursor: "pointer" }}>View My Work</button>
-            <button onClick={handleConnect} style={{ padding: "10px 22px", background: "transparent", color: C.primary, border: `1px solid ${C.primary}44`, borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Let's Connect</button>
+            <button onClick={() => setPage("work")} style={{ padding: "10px 22px", background: C.primary, color: "#fff", border: "none", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>View My Work</button>
+            <button onClick={handleConnect} style={{ padding: "10px 22px", background: `${C.primary}18`, color: C.primary, border: `1px solid ${C.primary}44`, borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Let's Connect</button>
+            <button onClick={() => setPage("about")} style={{ padding: "10px 22px", background: "transparent", color: C.textMuted, border: `1px solid ${C.border}`, borderRadius: 8, fontSize: 13, cursor: "pointer" }}>About Me</button>
           </div>
         </div>
       </section>
+      {/* Featured Projects */}
+      {PROJECTS.filter(p => p.featured).length > 0 && <section style={{ padding: "40px 0", borderTop: `1px solid ${C.border}` }}>
+        <SH sub="Highlighted work">Featured</SH>
+        <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : `repeat(${Math.min(PROJECTS.filter(p => p.featured).length, 3)}, 1fr)`, gap: 14 }}>
+          {PROJECTS.filter(p => p.featured).map(p => <ProjectCard key={p.id} project={p} onClick={() => onGalleryAction({ action: "openProject", projectId: p.id })} />)}
+        </div>
+      </section>}
       <section style={{ padding: "40px 0", borderTop: `1px solid ${C.border}` }}>
         <SH sub="Where disciplines converge">Philosophy</SH>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>{S.pillars.map((p, i) => <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}><span style={{ padding: "4px 12px", background: `${p.color}12`, border: `1px solid ${p.color}28`, borderRadius: 8, fontSize: 11, color: p.color, fontWeight: 600 }}>{p.label}</span>{i < S.pillars.length - 1 && <span style={{ color: C.textDim }}>+</span>}</div>)}<span style={{ color: C.textDim, margin: "0 2px" }}>=</span>{S.themes.map((t, i) => <span key={i} style={{ padding: "4px 10px", background: `${t.color}18`, border: `1px solid ${t.color}35`, borderRadius: 8, fontSize: 11, color: t.color, fontWeight: 700 }}>{t.icon} {t.label}</span>)}</div>
@@ -406,6 +423,14 @@ const AboutPage = ({ initialSection }) => {
     <div style={{ paddingTop: 28, paddingBottom: 40 }}>
       <h1 style={{ fontSize: m ? 26 : 30, fontWeight: 300, margin: 0, color: C.text }}>{P.headline} <span style={{ fontWeight: 700 }}>{S.firstName} {S.lastName}</span></h1>
       <p style={{ fontSize: 14, color: C.textMuted, marginTop: 8, maxWidth: 700, lineHeight: 1.7 }}>{P.bio}</p>
+
+      {/* Impact Highlights */}
+      {S.highlights && S.highlights.length > 0 && <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : `repeat(${S.highlights.length}, 1fr)`, gap: 10, marginTop: 20 }}>
+        {S.highlights.map((h, i) => <div key={i} style={{ padding: m ? "14px 12px" : "16px 18px", background: `${C.primary}08`, border: `1px solid ${C.primary}20`, borderRadius: 10, textAlign: "center" }}>
+          <div style={{ fontSize: m ? 20 : 24, fontWeight: 700, color: C.primary }}>{h.value}</div>
+          <div style={{ fontSize: 11, color: C.textMuted, marginTop: 4, letterSpacing: 0.5 }}>{h.label}</div>
+        </div>)}
+      </div>}
 
       {/* Let's Connect bar */}
       <div style={{ marginTop: 20, padding: m ? "12px 14px" : "14px 20px", background: `${C.primary}08`, borderRadius: 12, border: `1px solid ${C.primary}25`, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 10 }}>
@@ -558,6 +583,11 @@ export default function Portfolio() {
   const handleNavClick = (key) => { setNavParams({}); setPage(key); setMenuOpen(false); };
   const handleGalleryAction = ({ action, projectId }) => { if (action === "openProject") navigateTo("work", { initialProjectId: projectId }); else if (action === "scrollToMentors") navigateTo("about", { initialSection: "mentors" }); };
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, [page]);
+  useEffect(() => {
+    const base = `${S.firstName} ${S.lastName}`;
+    const titles = { home: `${base} — ${S.pages.home.tagline}`, about: `About | ${base}`, work: `Work | ${base}`, insights: `Insights | ${base}` };
+    document.title = titles[page] || base;
+  }, [page]);
 
   const menuSocials = S.socials.filter(s => s.showInMenu);
   const footerSocials = S.socials.filter(s => s.showInFooter);
@@ -604,7 +634,7 @@ export default function Portfolio() {
             {S.announcementDismissible && <button onClick={() => setAnnouncementDismissed(true)} style={{ background: `${C.primary}15`, border: `1px solid ${C.primary}30`, borderRadius: 4, cursor: "pointer", color: C.primary, fontSize: 13, padding: "2px 6px", lineHeight: 1 }}>✕</button>}
           </div>
         )}
-        <main style={{ maxWidth: 1200, margin: "0 auto", padding: m ? "0 16px" : "0 32px" }}>
+        <main key={page} style={{ maxWidth: 1200, margin: "0 auto", padding: m ? "0 16px" : "0 32px", animation: "fadeIn 0.3s ease" }}>
           {page === "home" && <HomePage setPage={handleNavClick} onGalleryAction={handleGalleryAction} />}
           {page === "about" && <AboutPage initialSection={navParams.initialSection} />}
           {page === "work" && <WorkPage initialProjectId={navParams.initialProjectId} />}
