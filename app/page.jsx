@@ -13,7 +13,7 @@ const SITE_CONFIG = {
   lastName: "Yeo",
   initials: "KH",
   logoIcon: "",                      // Emoji or symbol to use instead of initials (e.g. "🧬", "⚕️"). Leave "" to use initials.
-  logoImage: "/files/images/logo.png", // Path to image file for logo. Leave "" to use logoIcon or initials.
+  logoImage: "", // Path to image file for logo. Leave "" to use logoIcon or initials.
   email: "kimhwangyeo@gmail.com",
   resumeUrl: "/files/resume.pdf",   // "/files/resume.pdf"
   location: "Singapore & USA",
@@ -74,15 +74,15 @@ const SITE_CONFIG = {
   colorThemes: {
     default: {
       label: "Default",
-      primary: "#10b981", secondary: "#3b82f6", accent: "#a78bfa",
-      bg: "#1a1a1e", surface: "#222228", surfaceHover: "#2a2a30",
-      border: "#32323a", text: "#f0f0f0", textMuted: "#9ca3af", textDim: "#6b7280",
+      primary: "#0d9488", secondary: "#5b7fa6", accent: "#9b8bb4",
+      bg: "#1c1c20", surface: "#242428", surfaceHover: "#2c2c32",
+      border: "#34343c", text: "#ececec", textMuted: "#9ca3af", textDim: "#6b7280",
     },
     light: {
       label: "Light",
-      primary: "#059669", secondary: "#2563eb", accent: "#7c3aed",
-      bg: "#f0f0f0", surface: "#ffffff", surfaceHover: "#f5f5f5",
-      border: "#d4d4d8", text: "#1a1a1e", textMuted: "#52525b", textDim: "#71717a",
+      primary: "#0f766e", secondary: "#4a6d8c", accent: "#7c6b96",
+      bg: "#f4f3f1", surface: "#ffffff", surfaceHover: "#f7f6f4",
+      border: "#d6d3ce", text: "#1c1c20", textMuted: "#52525b", textDim: "#71717a",
     },
     accessible: {
       label: "High Contrast",
@@ -117,7 +117,7 @@ const SITE_CONFIG = {
   socials: [
     { name: "LinkedIn", icon: "in", url: "https://linkedin.com/in/kimhwang", showInMenu: true, showInFooter: true },
     { name: "ResearchGate", icon: "RG", url: "https://www.researchgate.net/profile/Kim-Hwang-Yeo/research", showInMenu: true, showInFooter: true },
-    { name: "ORCID", icon: "ID", url: "https://orcid.org/0000-0001-8849-1534", showInMenu: false, showInFooter: true },
+    { name: "ORCID", icon: "iD", url: "https://orcid.org/0000-0001-8849-1534", showInMenu: false, showInFooter: true },
     { name: "GitHub", icon: "GH", url: "https://github.com/kimmhwang/", showInMenu: false, showInFooter: true },
     { name: "Medium", icon: "M", url: "https://medium.com/@kimhwangyeo", showInMenu: false, showInFooter: true },
   ],
@@ -330,7 +330,7 @@ const ConnectSection = ({ flashTrigger = 0 }) => {
         <p style={{ fontSize: 14, color: C.textMuted, margin: "10px 0 24px" }}>{S.connect.tagline}</p>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
           <a href={`mailto:${S.email}`} style={{ padding: "10px 20px", background: C.primary, color: "#fff", border: "none", borderRadius: 10, fontSize: 13, fontWeight: 600, textDecoration: "none" }}>✉ {S.email}</a>
-          {S.socials.map((s, i) => <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" title={s.name} style={{ width: 40, height: 40, borderRadius: 10, background: C.surface, border: `1px solid ${C.border}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: C.textMuted, textDecoration: "none" }}>{s.icon}</a>)}
+          {S.socials.map((s, i) => <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" title={s.name} style={{ padding: "8px 14px", borderRadius: 10, background: C.surface, border: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 600, color: C.textMuted, textDecoration: "none" }}><span style={{ fontWeight: 800, fontSize: 10 }}>{s.icon}</span><span style={{ fontSize: 11 }}>{s.name}</span></a>)}
         </div>
         <p style={{ fontSize: 11, color: C.textDim, marginTop: 20, marginBottom: 0 }}>{S.location}</p>
       </section>
@@ -357,8 +357,8 @@ const HomePage = ({ setPage, onGalleryAction }) => {
     <div>
       <section style={{ padding: m ? "40px 0 30px" : "56px 0 40px", position: "relative" }}>
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 280, background: `radial-gradient(ellipse at 30% 0%, ${C.primary}44 0%, transparent 60%), radial-gradient(ellipse at 70% 20%, ${C.secondary}22 0%, transparent 50%)`, opacity: 0.15, pointerEvents: "none" }} />
-        {P.heroImage && <div style={{ position: "absolute", top: 0, right: 0, width: 320, height: 280, opacity: 0.12, backgroundImage: `url(${P.heroImage})`, backgroundSize: "cover", backgroundPosition: "center", borderRadius: "0 0 0 40px", pointerEvents: "none" }} />}
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative", display: "flex", alignItems: m ? "flex-start" : "center", gap: m ? 0 : 32, flexDirection: m ? "column" : "row" }}>
+          <div style={{ flex: 1 }}>
           <div style={{ fontSize: 11, letterSpacing: 4, textTransform: "uppercase", color: C.textDim, marginBottom: 12 }}>{P.tagline}</div>
           {/* Hero headline — uses solid color instead of gradient text to avoid theme-switch disappearing */}
           <h1 style={{ fontSize: m ? 30 : 44, fontWeight: 300, margin: 0, lineHeight: 1.15, color: C.text }}>{P.headline[0]}<br /><span style={{ fontWeight: 700, color: C.primary }}>{P.headline[1]}</span></h1>
@@ -369,7 +369,14 @@ const HomePage = ({ setPage, onGalleryAction }) => {
             <button onClick={handleConnect} style={{ padding: "10px 22px", background: `${C.primary}18`, color: C.primary, border: `1px solid ${C.primary}44`, borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Let's Connect</button>
             <button onClick={() => setPage("about")} style={{ padding: "10px 22px", background: "transparent", color: C.textMuted, border: `1px solid ${C.border}`, borderRadius: 8, fontSize: 13, cursor: "pointer" }}>About Me</button>
           </div>
+          </div>
+          {P.heroImage && !m && <div style={{ flexShrink: 0 }}>
+            <img src={P.heroImage} alt={`${S.firstName} ${S.lastName}`} style={{ width: 180, height: 180, borderRadius: "50%", objectFit: "cover", border: `3px solid ${C.primary}25`, boxShadow: `0 4px 20px ${C.primary}10` }} />
+          </div>}
         </div>
+        {P.heroImage && m && <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
+          <img src={P.heroImage} alt={`${S.firstName} ${S.lastName}`} style={{ width: 140, height: 140, borderRadius: "50%", objectFit: "cover", border: `3px solid ${C.primary}30` }} />
+        </div>}
       </section>
       {/* Featured Projects */}
       {PROJECTS.filter(p => p.featured).length > 0 && <section style={{ padding: "40px 0", borderTop: `1px solid ${C.border}` }}>
@@ -421,8 +428,13 @@ const AboutPage = ({ initialSection }) => {
 
   return (
     <div style={{ paddingTop: 28, paddingBottom: 40 }}>
-      <h1 style={{ fontSize: m ? 26 : 30, fontWeight: 300, margin: 0, color: C.text }}>{P.headline} <span style={{ fontWeight: 700 }}>{S.firstName} {S.lastName}</span></h1>
-      <p style={{ fontSize: 14, color: C.textMuted, marginTop: 8, maxWidth: 700, lineHeight: 1.7 }}>{P.bio}</p>
+      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+        {S.pages.home.heroImage && <img src={S.pages.home.heroImage} alt={`${S.firstName} ${S.lastName}`} style={{ width: m ? 64 : 80, height: m ? 64 : 80, borderRadius: "50%", objectFit: "cover", border: `2px solid ${C.primary}30`, flexShrink: 0 }} />}
+        <div>
+          <h1 style={{ fontSize: m ? 26 : 30, fontWeight: 300, margin: 0, color: C.text }}>{P.headline} <span style={{ fontWeight: 700 }}>{S.firstName} {S.lastName}</span></h1>
+          <p style={{ fontSize: 14, color: C.textMuted, marginTop: 8, maxWidth: 700, lineHeight: 1.7 }}>{P.bio}</p>
+        </div>
+      </div>
 
       {/* Impact Highlights */}
       {S.highlights && S.highlights.length > 0 && <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : `repeat(${S.highlights.length}, 1fr)`, gap: 10, marginTop: 20 }}>
@@ -567,7 +579,7 @@ const InsightsPage = () => {
 export default function Portfolio() {
   const [page, setPage] = useState("home");
   const [navParams, setNavParams] = useState({});
-  const [colorMode, setColorMode] = useState("dark"); // "dark" | "light"
+  const [colorMode, setColorMode] = useState("light"); // "dark" | "light"
   const [isAccessible, setIsAccessible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [announcementDismissed, setAnnouncementDismissed] = useState(false);
