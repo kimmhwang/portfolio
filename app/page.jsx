@@ -357,7 +357,11 @@ const HomePage = ({ setPage, onGalleryAction }) => {
     <div>
       <section style={{ padding: m ? "40px 0 30px" : "56px 0 40px", position: "relative" }}>
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 280, background: `radial-gradient(ellipse at 30% 0%, ${C.primary}44 0%, transparent 60%), radial-gradient(ellipse at 70% 20%, ${C.secondary}22 0%, transparent 50%)`, opacity: 0.15, pointerEvents: "none" }} />
-        <div style={{ position: "relative", display: "flex", alignItems: m ? "flex-start" : "center", gap: m ? 0 : 32, flexDirection: m ? "column" : "row" }}>
+        <div style={{ position: "relative" }}>
+          {P.heroImage && m && <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+            <img src={P.heroImage} alt={`${S.firstName} ${S.lastName}`} style={{ width: 180, height: 180, borderRadius: "50%", objectFit: "cover", border: `3px solid ${C.primary}25` }} />
+          </div>}
+          <div style={{ display: "flex", alignItems: "center", gap: 24, flexDirection: "row" }}>
           <div style={{ flex: 1 }}>
           <div style={{ fontSize: 11, letterSpacing: 4, textTransform: "uppercase", color: C.textDim, marginBottom: 12 }}>{P.tagline}</div>
           {/* Hero headline — uses solid color instead of gradient text to avoid theme-switch disappearing */}
@@ -371,12 +375,10 @@ const HomePage = ({ setPage, onGalleryAction }) => {
           </div>
           </div>
           {P.heroImage && !m && <div style={{ flexShrink: 0 }}>
-            <img src={P.heroImage} alt={`${S.firstName} ${S.lastName}`} style={{ width: 180, height: 180, borderRadius: "50%", objectFit: "cover", border: `3px solid ${C.primary}25`, boxShadow: `0 4px 20px ${C.primary}10` }} />
+            <img src={P.heroImage} alt={`${S.firstName} ${S.lastName}`} style={{ width: 315, height: 315, borderRadius: "50%", objectFit: "cover", border: `3px solid ${C.primary}20`, boxShadow: `0 4px 24px ${C.primary}10` }} />
           </div>}
+          </div>
         </div>
-        {P.heroImage && m && <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
-          <img src={P.heroImage} alt={`${S.firstName} ${S.lastName}`} style={{ width: 140, height: 140, borderRadius: "50%", objectFit: "cover", border: `3px solid ${C.primary}30` }} />
-        </div>}
       </section>
       {/* Featured Projects */}
       {PROJECTS.filter(p => p.featured).length > 0 && <section style={{ padding: "40px 0", borderTop: `1px solid ${C.border}` }}>
