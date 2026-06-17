@@ -29,3 +29,9 @@ yarn-error.log*
 .idea/
 .vscode/
 *.swp
+
+# Archived previous portfolio (v1) — kept locally, not tracked in the repo
+app/portfolio-v1/
+
+# Design handoff source bundle (working artifact)
+Portfolio revamp discussion.zip
