@@ -20,9 +20,21 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  // suppressHydrationWarning: the theme-boot script below stamps
+  // data-pv4-theme on <html> before React hydrates.
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
+        {/* Blocking theme boot: stamp the saved (or OS-preferred) theme on
+            <html> before the page content parses, so returning dark/contrast
+            users never see a light flash. The portfolio CSS keys off this
+            attribute; React state only drives the toggle icon. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('pv4-theme');if(t!=='light'&&t!=='dark'&&t!=='contrast'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-pv4-theme',t)}catch(e){}",
+          }}
+        />
         {children}
         <Analytics />
       </body>

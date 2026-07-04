@@ -73,7 +73,7 @@ function HeroSection() {
         <div className="hero-avatar">
           <div style={{ position: "relative", width: 82, height: 82, borderRadius: "50%", overflow: "hidden", flexShrink: 0, boxShadow: "inset 0 0 0 1px var(--img-edge)" }}>
             {/* Zoom the full-torso source so the avatar circle frames the face */}
-            <img src={c.portrait.src} alt={c.portrait.alt} fetchpriority="high" style={{ display: "block", width: "100%", height: "160%", objectFit: "cover", objectPosition: "50% 0%", filter: "saturate(0.9) contrast(1.02)" }} />
+            <img src={c.portrait.src} alt={c.portrait.alt} fetchPriority="high" style={{ display: "block", width: "100%", height: "160%", objectFit: "cover", objectPosition: "50% 0%", filter: "saturate(0.9) contrast(1.02)" }} />
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", mixBlendMode: "multiply", background: "linear-gradient(155deg, rgba(184,106,75,0.14), rgba(184,106,75,0.02) 42%, rgba(40,28,18,0.10))" }} />
           </div>
           <div className="mono" style={{ fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "var(--dim)", lineHeight: 1.6 }}>{c.captionLeft}<br />{c.captionRight}</div>
@@ -92,7 +92,7 @@ function HeroSection() {
       </Reveal>
       <Reveal style={{ alignSelf: "center" }}>
         <div className="hero-portrait">
-          <img src={c.portrait.src} alt={c.portrait.alt} fetchpriority="high" />
+          <img src={c.portrait.src} alt={c.portrait.alt} fetchPriority="high" />
           <div className="tint" />
         </div>
         <div className="mono" style={{ display: "flex", justifyContent: "space-between", fontSize: 11, letterSpacing: 1, color: "var(--dim)", marginTop: 12, textTransform: "uppercase" }}>
@@ -201,7 +201,10 @@ function WorkSection({ onOpen }) {
       </div>
       <div className="work-grid">
         {c.projects.map((p, i) => (
-          <Reveal as="button" key={i} className="work-card" onClick={() => onOpen(i)} aria-haspopup="dialog" style={{ transitionDelay: `${(i % 3) * 70}ms` }}>
+          /* <article> with a real <button> inside the <h3>, stretched over the
+             card via ::after — buttons can't contain headings/flow content,
+             and this keeps the five project titles in AT heading navigation. */
+          <Reveal as="article" key={i} className="work-card" style={{ transitionDelay: `${(i % 3) * 70}ms` }}>
             <div className="imgslot" style={{ aspectRatio: "16/10" }}>
               <div className="ph"><PhotoIcon /><span className="mono" style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase" }}>Photo</span></div>
               {p.image ? <img src={p.image} alt="" loading="lazy" decoding="async" /> : null}
@@ -211,7 +214,9 @@ function WorkSection({ onOpen }) {
                 <span className="badge">{p.badge}</span>
                 <span className="mono" style={{ fontSize: 11, color: "var(--dim)" }}>{p.year}</span>
               </div>
-              <h3 className="serif-h" style={{ fontSize: 21, margin: "0 0 8px", letterSpacing: "-0.2px", fontWeight: 400 }}>{p.name}</h3>
+              <h3 className="serif-h" style={{ fontSize: 21, margin: "0 0 8px", letterSpacing: "-0.2px", fontWeight: 400 }}>
+                <button type="button" className="card-btn" onClick={() => onOpen(i)} aria-haspopup="dialog">{p.name}</button>
+              </h3>
               <p className="proj-desc">{p.description}</p>
               <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span className="mono" style={{ fontSize: 11, color: "var(--dim)", textTransform: "uppercase", letterSpacing: 0.5 }}>{p.kind}</span>
@@ -566,13 +571,21 @@ export default function PortfolioV4() {
     return t;
   }, [visible]);
 
-  // theme init: localStorage → prefers-color-scheme → default
+  // Theme CSS keys off html[data-pv4-theme], stamped pre-paint by the
+  // blocking script in layout.js — so there is no light flash for returning
+  // dark/contrast users. This effect only syncs React state (toggle icon)
+  // to that attribute, and stamps it if the script didn't run.
   useEffect(() => {
+    const booted = document.documentElement.getAttribute("data-pv4-theme");
+    if (THEME_ORDER.includes(booted)) { setTheme(booted); return; }
+    let t = SITE_META.defaultTheme;
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved && THEME_ORDER.includes(saved)) { setTheme(saved); return; }
+      if (THEME_ORDER.includes(saved)) t = saved;
+      else if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) t = "dark";
     } catch {}
-    if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) setTheme("dark");
+    document.documentElement.setAttribute("data-pv4-theme", t);
+    setTheme(t);
   }, []);
   useEffect(() => {
     try { if (sessionStorage.getItem(BANNER_KEY) === "1") setShowBanner(false); } catch {}
@@ -581,6 +594,7 @@ export default function PortfolioV4() {
   const cycleTheme = useCallback(() => {
     setTheme((t) => {
       const next = THEME_ORDER[(THEME_ORDER.indexOf(t) + 1) % THEME_ORDER.length];
+      document.documentElement.setAttribute("data-pv4-theme", next);
       try { localStorage.setItem(STORAGE_KEY, next); } catch {}
       return next;
     });
