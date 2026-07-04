@@ -11,6 +11,14 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* The scrolling element is html, so component-scoped reduced-motion rules
+   can't reach it — anchor/skip-link jumps must go instant here. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   line-height: 1.5;

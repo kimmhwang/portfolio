@@ -73,7 +73,7 @@ function HeroSection() {
         <div className="hero-avatar">
           <div style={{ position: "relative", width: 82, height: 82, borderRadius: "50%", overflow: "hidden", flexShrink: 0, boxShadow: "inset 0 0 0 1px var(--img-edge)" }}>
             {/* Zoom the full-torso source so the avatar circle frames the face */}
-            <img src={c.portrait.src} alt={c.portrait.alt} fetchPriority="high" style={{ display: "block", width: "100%", height: "160%", objectFit: "cover", objectPosition: "50% 0%", filter: "saturate(0.9) contrast(1.02)" }} />
+            <img src={c.portrait.src} alt={c.portrait.alt} fetchpriority="high" style={{ display: "block", width: "100%", height: "160%", objectFit: "cover", objectPosition: "50% 0%", filter: "saturate(0.9) contrast(1.02)" }} />
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none", mixBlendMode: "multiply", background: "linear-gradient(155deg, rgba(184,106,75,0.14), rgba(184,106,75,0.02) 42%, rgba(40,28,18,0.10))" }} />
           </div>
           <div className="mono" style={{ fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "var(--dim)", lineHeight: 1.6 }}>{c.captionLeft}<br />{c.captionRight}</div>
@@ -92,7 +92,7 @@ function HeroSection() {
       </Reveal>
       <Reveal style={{ alignSelf: "center" }}>
         <div className="hero-portrait">
-          <img src={c.portrait.src} alt={c.portrait.alt} fetchPriority="high" />
+          <img src={c.portrait.src} alt={c.portrait.alt} fetchpriority="high" />
           <div className="tint" />
         </div>
         <div className="mono" style={{ display: "flex", justifyContent: "space-between", fontSize: 11, letterSpacing: 1, color: "var(--dim)", marginTop: 12, textTransform: "uppercase" }}>
@@ -410,20 +410,36 @@ function ConnectFooter() {
 function ProjectModal({ index, onClose, onNav }) {
   const projects = CONTENT.work.projects;
   const project = index != null ? projects[index] : null;
+  const open = project != null;
   const [featured, setFeatured] = useState(0);
   const dialogRef = useRef(null);
   const lastFocused = useRef(null);
 
   useEffect(() => { setFeatured(0); }, [index]);
 
-  // Focus trap + restore focus on close
+  // Open/close lifecycle only: capture the trigger, focus the dialog, lock
+  // scroll; restore both on close. Keyed on `open` so switching projects via
+  // ←/→ never tears this down (no focus flicker to the background card).
   useEffect(() => {
-    if (!project) return;
+    if (!open) return;
     lastFocused.current = document.activeElement;
     const dlg = dialogRef.current;
-    const focusables = () => dlg.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
-    (focusables()[0] || dlg).focus();
+    (dlg.querySelector("button, [href]") || dlg).focus();
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      lastFocused.current?.focus?.();
+    };
+  }, [open]);
+
+  // Keyboard: Esc / arrows / Tab trap. onClose and onNav are stable
+  // useCallbacks in the parent, so this attaches once per open.
+  useEffect(() => {
+    if (!open) return;
     const onKey = (e) => {
+      const dlg = dialogRef.current;
+      const focusables = () => dlg.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
       const inThumbs = e.target instanceof Element && e.target.closest(".thumbs");
       if (e.key === "Escape") onClose();
       else if (e.key === "ArrowRight" && !inThumbs) onNav(1);
@@ -436,21 +452,20 @@ function ProjectModal({ index, onClose, onNav }) {
       }
     };
     window.addEventListener("keydown", onKey);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prevOverflow;
-      lastFocused.current?.focus?.();
-    };
-  }, [project, onClose, onNav]);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose, onNav]);
 
   if (!project) return null;
   const gallery = project.gallery && project.gallery.length ? project.gallery : [];
+  // Clamp so navigating from a longer gallery to a shorter one can never
+  // render an out-of-range frame before the reset effect runs.
+  const shown = gallery.length ? Math.min(featured, gallery.length - 1) : 0;
 
   return (
-    <div className="scrim" onClick={onClose}>
-      <div className="modal" ref={dialogRef} onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="pv4-modal-title" tabIndex={-1}>
+    /* Close on mousedown ON the scrim itself — a text-selection drag that
+       ends over the scrim must not dismiss the dialog. */
+    <div className="scrim" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="modal" ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="pv4-modal-title" tabIndex={-1}>
         <div style={{ padding: "28px 30px 22px", borderBottom: "1px solid var(--line)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
             <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
@@ -467,14 +482,14 @@ function ProjectModal({ index, onClose, onNav }) {
             <>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 11 }}>
                 <span className="mono" style={{ fontSize: 10.5, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--accent-ink)" }}>Gallery</span>
-                <span className="mono" style={{ fontSize: 10.5, color: "var(--dim)" }}>{featured + 1} / {gallery.length}</span>
+                <span className="mono" style={{ fontSize: 10.5, color: "var(--dim)" }}>{shown + 1} / {gallery.length}</span>
               </div>
               <div className="feature-img">
-                <img src={gallery[featured]} alt={`${project.name} — image ${featured + 1}`} loading="lazy" decoding="async" />
+                <img src={gallery[shown]} alt={`${project.name} — image ${shown + 1}`} loading="lazy" decoding="async" />
               </div>
               <div className="thumbs" style={{ display: "grid", gridTemplateColumns: `repeat(${Math.min(gallery.length, 4)},1fr)`, gap: 8, marginBottom: 22 }}>
                 {gallery.map((src, i) => (
-                  <button key={i} className={`thumb${i === featured ? " is-active" : ""}`} onClick={() => setFeatured(i)} aria-label={`Show image ${i + 1}`} aria-pressed={i === featured}>
+                  <button key={i} className={`thumb${i === shown ? " is-active" : ""}`} onClick={() => setFeatured(i)} aria-label={`Show image ${i + 1}`} aria-pressed={i === shown}>
                     <img src={src} alt="" loading="lazy" decoding="async" />
                   </button>
                 ))}
@@ -617,6 +632,9 @@ export default function PortfolioV4() {
   }, [spyIds]);
 
   const openProject = useCallback((i) => setSelected(i), []);
+  // Stable identity — an inline arrow here would re-run the modal's effects
+  // on every parent re-render (e.g. scroll-driven state) while it's open.
+  const closeProject = useCallback(() => setSelected(null), []);
   const navProject = useCallback((dir) => {
     setSelected((cur) => {
       const n = CONTENT.work.projects.length;
@@ -719,9 +737,9 @@ export default function PortfolioV4() {
       </main>
 
       {/* Back to top */}
-      <button className={`to-top${showTop ? " show" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">↑</button>
+      <button className={`to-top${showTop ? " show" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })} aria-label="Back to top">↑</button>
 
-      <ProjectModal index={selected} onClose={() => setSelected(null)} onNav={navProject} />
+      <ProjectModal index={selected} onClose={closeProject} onNav={navProject} />
     </div>
   );
 }

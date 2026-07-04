@@ -179,9 +179,9 @@ export const CONTENT = {
     insightsLabel: "Recent thinking",
     mediumUrl: "https://medium.com/@kimhwangyeo",
     insights: [
-      { date: "Feb 2026", title: "What I Learned from Pursuing a Startup", excerpt: "Lessons on innovation and entrepreneurship from building a venture during my time at Johns Hopkins.", href: "https://medium.com/@kimhwangyeo/what-i-learned-from-pursuing-a-startup-and-other-lessons-from-my-time-at-johns-hopkins-fd7c38c08bc1" },
       { date: "May 2026", title: "Three Factors, One Cycle", excerpt: "A review of Alasdair Nairn's Engines That Move Markets — how technology cycles drive investment returns.", href: "https://medium.com/@kimhwangyeo/three-factors-one-cycle-6b7df086dd29" },
       { date: "Apr 2026", title: "Five Ideas That Changed How I See AI", excerpt: "A review of Ethem Alpaydin's Machine Learning, distilled into five core ideas.", href: "https://medium.com/@kimhwangyeo/five-ideas-that-changed-how-i-see-ai-bfa160622e1f" },
+      { date: "Feb 2026", title: "What I Learned from Pursuing a Startup", excerpt: "Lessons on innovation and entrepreneurship from building a venture during my time at Johns Hopkins.", href: "https://medium.com/@kimhwangyeo/what-i-learned-from-pursuing-a-startup-and-other-lessons-from-my-time-at-johns-hopkins-fd7c38c08bc1" },
       { date: "Apr 2025", title: "Singapore Cannot Afford Naivety in a Changing World", excerpt: "An op-ed on Singapore's strategic position in a shifting global order.", href: "https://medium.com/@kimhwangyeo/singapore-cannot-afford-naivety-in-a-changing-world-10214fe96fe9" },
     ],
   },
